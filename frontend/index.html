@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Online Payment Fraud Detection</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Online Payment Fraud Detection</h1>
+    <p>Enter transaction details to check for fraud.</p>
+  </header>
+
+  <section class="form-section">
+    <form id="predictionForm">
+      <label for="feature1">Feature 1:</label>
+      <input type="text" id="feature1" name="feature1" required>
+      
+      <label for="feature2">Feature 2:</label>
+      <input type="text" id="feature2" name="feature2" required>
+      
+      <label for="feature3">Feature 3:</label>
+      <input type="text" id="feature3" name="feature3" required>
+
+      <label for="feature4">Feature 4:</label>
+      <input type="text" id="feature4" name="feature4" required>
+
+      <button type="submit">Predict</button>
+    </form>
+  </section>
+
+  <section class="prediction-section" id="predictionSection">
+    <h2>Prediction Result</h2>
+    <p id="predictionResult">Awaiting input...</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Fraud Detection System</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
