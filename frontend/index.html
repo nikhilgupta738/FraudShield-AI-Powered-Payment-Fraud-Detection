@@ -1,163 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Payment Fraud Detection</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #result {
-            margin-top: 20px;
-            padding: 10px;
-            border-radius: 4px;
-            text-align: center;
-            display: none;
-        }
-        .fraud {
-            background-color: #ffcccc;
-            color: #cc0000;
-        }
-        .non-fraud {
-            background-color: #ccffcc;
-            color: #006600;
-        }
-    </style>
-</head>
-<body>
-    <h1>Online Payment Fraud Detection</h1>
-    <div class="container">
-        <form id="fraudForm">
-            <div class="form-group">
-                <label for="type">Transaction Type</label>
-                <select id="type" name="type" required>
-                    <option value="">Select Type</option>
-                    <option value="CASH_IN">CASH_IN</option>
-                    <option value="CASH_OUT">CASH_OUT</option>
-                    <option value="DEBIT">DEBIT</option>
-                    <option value="PAYMENT">PAYMENT</option>
-                    <option value="TRANSFER">TRANSFER</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="number" id="amount" name="amount" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label for="oldbalanceOrg">Old Balance Origin</label>
-                <input type="number" id="oldbalanceOrg" name="oldbalanceOrg" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label for="newbalanceOrig">New Balance Origin</label>
-                <input type="number" id="newbalanceOrig" name="newbalanceOrig" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label for="oldbalanceDest">Old Balance Destination</label>
-                <input type="number" id="oldbalanceDest" name="oldbalanceDest" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label for="newbalanceDest">New Balance Destination</label>
-                <input type="number" id="newbalanceDest" name="newbalanceDest" step="0.01" required>
-            </div>
-            <button type="submit">Check for Fraud</button>
-        </form>
-        <div id="result"></div>
-    </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FraudShield | AI-Powered Payment Fraud Detection</title>
+    <meta name="description" content="Secure your online payments with AI-powered fraud detection. FraudShield offers real-time transaction analysis to protect you from fraud." />
+    <meta name="author" content="FraudShield" />
+    
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
 
-    <script>
-        document.getElementById('fraudForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-content">
+          <a href="{{url_for('home')}}" class="logo">
+            <div class="logo-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <span class="logo-text">FraudShield</span>
+          </a>
+          
+          <div class="nav-links desktop-nav">
+            <a href="{{url_for('home')}}" class="nav-item active">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+            <a href="{{url_for('predict')}}" class="nav-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Predict</span>
+            </a>
+            <a href="{{url_for('feedback')}}" class="nav-item">
+              <i class="fas fa-comment"></i>
+              <span>Feedback</span>
+            </a>
+          </div>
+          
+          <div class="mobile-nav">
+            <a href="{{url_for('home')}}" class="nav-item active">
+              <i class="fas fa-home"></i>
+            </a>
+            <a href="{{url_for('predict')}}" class="nav-item">
+              <i class="fas fa-shield-alt"></i>
+            </a>
+            <a href="{{url_for('feedback')}}" class="nav-item">
+              <i class="fas fa-comment"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <h1 class="hero-title">Secure Your Transactions with AI</h1>
+              <p class="hero-subtitle">Real-time fraud detection powered by Machine Learning & Neural Networks</p>
+              <a href="{{url_for('predict')}}" class="btn btn-primary hero-cta">
+                <span>Check Transaction Now</span>
+                <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+            <div class="hero-image">
+              <img src="../static/images/fraud_hero.png" alt="AI Fraud Detection Illustration">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features">
+        <div class="container">
+          <h2 class="section-title">How It Works</h2>
+          
+          <div class="feature-grid">
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+              </div>
+              <h3 class="feature-title">Real-time Detection</h3>
+              <p class="feature-description">Our AI models analyze transactions in real-time to identify suspicious patterns.</p>
+            </div>
             
-            const type = document.getElementById('type').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-            const oldbalanceOrg = parseFloat(document.getElementById('oldbalanceOrg').value);
-            const newbalanceOrig = parseFloat(document.getElementById('newbalanceOrig').value);
-            const oldbalanceDest = parseFloat(document.getElementById('oldbalanceDest').value);
-            const newbalanceDest = parseFloat(document.getElementById('newbalanceDest').value);
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-brain"></i>
+              </div>
+              <h3 class="feature-title">Machine Learning</h3>
+              <p class="feature-description">Advanced algorithms learn from millions of transactions to improve accuracy.</p>
+            </div>
+            
+            <div class="feature-card">
+              <div class="feature-icon">
+                <i class="fas fa-chart-line"></i>
+              </div>
+              <h3 class="feature-title">Data Analytics</h3>
+              <p class="feature-description">Comprehensive analytics to understand transaction patterns and trends.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
-            const features = [
-                amount,
-                oldbalanceOrg,
-                newbalanceOrig,
-                newbalanceDest,
-                oldbalanceDest,
-                type === 'CASH_OUT' ? 1 : 0,
-                type === 'DEBIT' ? 1 : 0,
-                type === 'PAYMENT' ? 1 : 0,
-                type === 'TRANSFER' ? 1 : 0
-            ];
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <div class="logo-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <span class="logo-text">FraudShield</span>
+          </div>
+          
+          <div class="footer-copyright">
+            © 2025 FraudShield. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
 
-            try {
-                const response = await fetch('/predict', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ features })
-                });
-
-                const result = await response.json();
-                const resultDiv = document.getElementById('result');
-                
-                resultDiv.style.display = 'block';
-                if (result.prediction === 1) {
-                    resultDiv.className = 'fraud';
-                    resultDiv.textContent = 'Warning: This transaction is predicted to be FRAUDULENT!';
-                } else {
-                    resultDiv.className = 'non-fraud';
-                    resultDiv.textContent = 'This transaction is predicted to be NON-FRAUDULENT.';
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                const resultDiv = document.getElementById('result');
-                resultDiv.style.display = 'block';
-                resultDiv.className = 'fraud';
-                resultDiv.textContent = 'Error occurred while processing the request.';
-            }
-        });
-    </script>
-</body>
+    <script src="/static/script.js"></script>
+  </body>
 </html>

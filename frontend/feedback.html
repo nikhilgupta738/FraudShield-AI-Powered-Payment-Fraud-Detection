@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback | FraudShield</title>
+    <meta name="description" content="Share your feedback to help us improve our fraud detection system." />
+    <meta name="author" content="FraudShield" />
+    
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <div class="navbar-content">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <span class="logo-text">FraudShield</span>
+          </a>
+          
+          <div class="nav-links desktop-nav">
+            <a href="index.html" class="nav-item">
+              <i class="fas fa-home"></i>
+              <span>Home</span>
+            </a>
+            <a href="predict.html" class="nav-item">
+              <i class="fas fa-shield-alt"></i>
+              <span>Predict</span>
+            </a>
+            <a href="feedback.html" class="nav-item active">
+              <i class="fas fa-comment"></i>
+              <span>Feedback</span>
+            </a>
+          </div>
+          
+          <div class="mobile-nav">
+            <a href="index.html" class="nav-item">
+              <i class="fas fa-home"></i>
+            </a>
+            <a href="predict.html" class="nav-item">
+              <i class="fas fa-shield-alt"></i>
+            </a>
+            <a href="feedback.html" class="nav-item active">
+              <i class="fas fa-comment"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        <div class="page-header">
+          <h1>Share Your Feedback</h1>
+          <p>Help us improve our fraud detection system with your insights</p>
+        </div>
+
+        <div class="card" style="max-width: 600px; margin: 0 auto;">
+          <div class="card-header">
+            <h2>Feedback Form</h2>
+            <p>Your feedback is valuable to us</p>
+          </div>
+
+          <div class="card-content">
+            <form id="feedbackForm">
+              <div class="form-group">
+                <label for="name">Name (Optional)</label>
+                <input type="text" id="name" placeholder="Your name">
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email (Optional)</label>
+                <input type="email" id="email" placeholder="Your email">
+              </div>
+
+              <div class="form-group">
+                <label for="accuracy">Was the prediction accurate?</label>
+                <select id="accuracy">
+                  <option value="">Please select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                  <option value="unsure">Unsure</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="feedback">Your Feedback</label>
+                <textarea id="feedback" rows="5" placeholder="Please share your thoughts on our fraud detection system"></textarea>
+              </div>
+
+              <button type="button" id="submitFeedback" class="btn btn-primary">
+                <i class="fas fa-paper-plane"></i>
+                Submit Feedback
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-logo">
+            <div class="logo-icon">
+              <i class="fas fa-shield-alt"></i>
+            </div>
+            <span class="logo-text">FraudShield</span>
+          </div>
+          
+          <div class="footer-copyright">
+            © 2025 FraudShield. All rights reserved.
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div id="toast" class="toast">
+      <div class="toast-content">
+        <i class="fas fa-check-circle toast-icon"></i>
+        <div class="toast-message">
+          Thanks for helping us make the fraud detection smarter! 🧠💖
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const submitButton = document.getElementById('submitFeedback');
+        const toast = document.getElementById('toast');
+        
+        submitButton.addEventListener('click', function() {
+          // Simple validation
+          const feedback = document.getElementById('feedback').value;
+          if (!feedback) {
+            alert('Please enter your feedback');
+            return;
+          }
+          
+          // Show toast notification
+          toast.classList.add('show-toast');
+          
+          // Hide toast after 3 seconds
+          setTimeout(() => {
+            toast.classList.remove('show-toast');
+            
+            // Reset form
+            document.getElementById('feedbackForm').reset();
+          }, 3000);
+        });
+      });
+    </script>
+
+    <style>
+      /* Additional styles for feedback page */
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--input);
+        border-radius: var(--radius);
+        resize: vertical;
+        min-height: 100px;
+        font-family: inherit;
+        font-size: 0.875rem;
+      }
+      
+      textarea:focus {
+        outline: none;
+        border-color: var(--ring);
+        box-shadow: 0 0 0 2px rgba(110, 89, 165, 0.2);
+      }
+      
+      .toast {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background-color: var(--card);
+        border-left: 4px solid var(--legit);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: var(--radius);
+        padding: 1rem;
+        display: flex;
+        align-items: center;
+        transform: translateX(150%);
+        transition: transform 0.3s ease;
+        z-index: 1000;
+      }
+      
+      .toast.show-toast {
+        transform: translateX(0);
+      }
+      
+      .toast-content {
+        display: flex;
+        align-items: center;
+      }
+      
+      .toast-icon {
+        color: var(--legit);
+        font-size: 1.25rem;
+        margin-right: 0.75rem;
+      }
+      
+      .toast-message {
+        font-size: 0.875rem;
+      }
+    </style>
+  </body>
+</html>
