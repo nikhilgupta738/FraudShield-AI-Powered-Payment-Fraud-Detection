@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -24,15 +24,15 @@
           </a>
           
           <div class="nav-links desktop-nav">
-            <a href="index.html" class="nav-item">
+            <a href="{{url_for('home')}}" class="nav-item">
               <i class="fas fa-home"></i>
               <span>Home</span>
             </a>
-            <a href="predict.html" class="nav-item active">
+            <a href="{{url_for('predict')}}" class="nav-item active">
               <i class="fas fa-shield-alt"></i>
               <span>Predict</span>
             </a>
-            <a href="feedback.html" class="nav-item">
+            <a href="{{url_for('feedback')}}" class="nav-item">
               <i class="fas fa-comment"></i>
               <span>Feedback</span>
             </a>
