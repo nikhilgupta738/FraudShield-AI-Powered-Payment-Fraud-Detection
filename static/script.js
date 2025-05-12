@@ -40,15 +40,13 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Prepare features array
       const features = [
+        type,
         amount,
         oldbalanceOrg,
         newbalanceOrig,
         newbalanceDest,
-        oldbalanceDest,
-        type === 'CASH_OUT' ? 1 : 0,
-        type === 'DEBIT' ? 1 : 0,
-        type === 'PAYMENT' ? 1 : 0,
-        type === 'TRANSFER' ? 1 : 0
+        oldbalanceDest
+        
       ];
       
       console.log("Sending features:", features);

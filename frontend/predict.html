@@ -1,213 +1,232 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fraud Prediction | FraudShield</title>
-    <meta name="description" content="Check your transactions for potential fraud with our AI-powered detection system." />
-    <meta name="author" content="FraudShield" />
-    
-    <link rel="stylesheet" href="/static/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  </head>
 
-  <body>
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-content">
-          <a href="index.html" class="logo">
-            <div class="logo-icon">
-              <i class="fas fa-shield-alt"></i>
-            </div>
-            <span class="logo-text">FraudShield</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fraud Prediction | FraudShield</title>
+  <meta name="description"
+    content="Check your transactions for potential fraud with our AI-powered detection system." />
+  <meta name="author" content="FraudShield" />
+
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="index.html" class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <span class="logo-text">FraudShield</span>
+        </a>
+
+        <div class="nav-links desktop-nav">
+          <a href="{{url_for('home')}}" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
           </a>
-          
-          <div class="nav-links desktop-nav">
-            <a href="{{url_for('home')}}" class="nav-item">
-              <i class="fas fa-home"></i>
-              <span>Home</span>
-            </a>
-            <a href="{{url_for('predict')}}" class="nav-item active">
-              <i class="fas fa-shield-alt"></i>
-              <span>Predict</span>
-            </a>
-            <a href="{{url_for('feedback')}}" class="nav-item">
-              <i class="fas fa-comment"></i>
-              <span>Feedback</span>
-            </a>
-          </div>
-          
-          <div class="mobile-nav">
-            <a href="index.html" class="nav-item">
-              <i class="fas fa-home"></i>
-            </a>
-            <a href="predict.html" class="nav-item active">
-              <i class="fas fa-shield-alt"></i>
-            </a>
-            <a href="feedback.html" class="nav-item">
-              <i class="fas fa-comment"></i>
-            </a>
-          </div>
+          <a href="{{url_for('predict')}}" class="nav-item active">
+            <i class="fas fa-shield-alt"></i>
+            <span>Predict</span>
+          </a>
+          <a href="{{url_for('feedback')}}" class="nav-item">
+            <i class="fas fa-comment"></i>
+            <span>Feedback</span>
+          </a>
+        </div>
+
+        <div class="mobile-nav">
+          <a href="index.html" class="nav-item">
+            <i class="fas fa-home"></i>
+          </a>
+          <a href="predict.html" class="nav-item active">
+            <i class="fas fa-shield-alt"></i>
+          </a>
+          <a href="feedback.html" class="nav-item">
+            <i class="fas fa-comment"></i>
+          </a>
         </div>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <main>
-      <div class="container">
-        <div class="page-header">
-          <h1>Transaction Fraud Detection</h1>
-          <p>Enter transaction details below to check for potential fraud</p>
-        </div>
+  <main>
+    <div class="container">
+      <div class="page-header">
+        <h1>Transaction Fraud Detection</h1>
+        <p>Enter transaction details below to check for potential fraud</p>
+      </div>
 
-        <div class="prediction-container">
-          <!-- Form Card -->
-          <div class="card-form-card">
-            <div class="card-header">
-              <h2>Transaction Details</h2>
-              <p>Fill in the details below to analyze your transaction</p>
-            </div>
-
-            <div class="card-content">
-              <form id="predictionForm">
-                <div class="form-group">
-                  <label for="type">Transaction Type</label>
-                  <div class="input-wrapper">
-                    <select id="type" name="type" required>
-                      <option value="">Select Type</option>
-                      <option value="CASH_IN">CASH_IN</option>
-                      <option value="CASH_OUT">CASH_OUT</option>
-                      <option value="DEBIT">DEBIT</option>
-                      <option value="PAYMENT">PAYMENT</option>
-                      <option value="TRANSFER">TRANSFER</option>
-                    </select>
-                    <div class="tooltip">
-                      <i class="fas fa-question-circle"></i>
-                      <span class="tooltip-text">Select the type of transaction</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label for="amount">Amount</label>
-                  <div class="input-wrapper">
-                    <input type="number" id="amount" name="amount" step="0.01" required placeholder="Enter amount">
-                    <div class="tooltip">
-                      <i class="fas fa-question-circle"></i>
-                      <span class="tooltip-text">Enter the transaction amount</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label for="oldbalanceOrg">Old Balance Origin</label>
-                  <div class="input-wrapper">
-                    <input type="number" id="oldbalanceOrg" name="oldbalanceOrg" step="0.01" required placeholder="Enter old balance">
-                    <div class="tooltip">
-                      <i class="fas fa-question-circle"></i>
-                      <span class="tooltip-text">Enter the original balance before transaction</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label for="newbalanceOrig">New Balance Origin</label>
-                  <div class="input-wrapper">
-                    <input type="number" id="newbalanceOrig" name="newbalanceOrig" step="0.01" required placeholder="Enter new balance">
-                    <div class="tooltip">
-                      <i class="fas fa-question-circle"></i>
-                      <span class="tooltip-text">Enter the updated balance after transaction</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label for="oldbalanceDest">Old Balance Destination</label>
-                  <div class="input-wrapper">
-                    <input type="number" id="oldbalanceDest" name="oldbalanceDest" step="0.01" required placeholder="Enter old balance">
-                    <div class="tooltip">
-                      <i class="fas fa-question-circle"></i>
-                      <span class="tooltip-text">Enter the destination's original balance before transaction</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="form-group">
-                  <label for="newbalanceDest">New Balance Destination</label>
-                  <div class="input-wrapper">
-                    <input type="number" id="newbalanceDest" name="newbalanceDest" step="0.01" required placeholder="Enter new balance">
-                    <div class="tooltip">
-                      <i class="fas fa-question-circle"></i>
-                      <span class="tooltip-text">Enter the destination's updated balance after transaction</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="button-group">
-                  <button type="submit" id="predictRandomForest" name="predictRandomForest" class="btn btn-primary">
-                    <i class="fas fa-tree"></i>
-                    Predict with Random Forest
-                  </button>
-                  <button type="button" id="predictNeuralNetwork" name="predictNeuralNetwork" class="btn btn-secondary">
-                    <i class="fas fa-brain"></i>
-                    Predict with Neural Network
-                  </button>
-                </div>
-              </form>
-            </div>
+      <div class="prediction-container">
+        <!-- Form Card -->
+        <div class="card-form-card">
+          <div class="card-header">
+            <h2>Transaction Details</h2>
+            <p>Fill in the details below to analyze your transaction</p>
           </div>
 
-          <!-- Results Card (initially hidden) -->
-          <div class="card result-card legit" id="resultCard" style="display: none;">
-            <div class="card-header result-header">
-              <h2 class="result-title">Transaction Legitimate</h2>
-              <i class="fas fa-check-circle result-icon"></i>
-            </div>
-            <div class="card-content">
-              <p class="model-info">Analyzed with Random Forest Model</p>
-              
-              <div class="confidence-section">
-                <div class="confidence-header">
-                  <span>Confidence Score</span>
-                  <span class="confidence-value">95.5%</span>
-                </div>
-                <div class="progress-container">
-                  <div class="progress-bar" style="width: 95.5%;"></div>
+          <div class="card-content">
+            <form action="{{ url_for('predict') }}" method="POST">
+              <div class="form-group">
+                <label for="type">Transaction Type</label>
+                <div class="input-wrapper">
+                  <select id="type" name="type" required>
+                    <option value="">Select Type</option>
+                    <option value="CASH_IN">CASH_IN</option>
+                    <option value="CASH_OUT">CASH_OUT</option>
+                    <option value="DEBIT">DEBIT</option>
+                    <option value="PAYMENT">PAYMENT</option>
+                    <option value="TRANSFER">TRANSFER</option>
+                  </select>
+                  <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip-text">Select the type of transaction</span>
+                  </div>
                 </div>
               </div>
-              
-              <div id="result-message">
-                This transaction appears legitimate based on our analysis. It aligns with normal transaction patterns.
+
+              <div class="form-group">
+                <label for="amount">Amount</label>
+                <div class="input-wrapper">
+                  <input type="number" id="amount" name="amount" step="0.01" required placeholder="Enter amount">
+                  <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip-text">Enter the transaction amount</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="oldbalanceOrg">Old Balance Origin</label>
+                <div class="input-wrapper">
+                  <input type="number" id="oldbalanceOrg" name="oldbalanceOrg" step="0.01" required
+                    placeholder="Enter old balance">
+                  <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip-text">Enter the original balance before transaction</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="newbalanceOrig">New Balance Origin</label>
+                <div class="input-wrapper">
+                  <input type="number" id="newbalanceOrig" name="newbalanceOrig" step="0.01" required
+                    placeholder="Enter new balance">
+                  <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip-text">Enter the updated balance after transaction</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="oldbalanceDest">Old Balance Destination</label>
+                <div class="input-wrapper">
+                  <input type="number" id="oldbalanceDest" name="oldbalanceDest" step="0.01" required
+                    placeholder="Enter old balance">
+                  <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip-text">Enter the destination's original balance before transaction</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="newbalanceDest">New Balance Destination</label>
+                <div class="input-wrapper">
+                  <input type="number" id="newbalanceDest" name="newbalanceDest" step="0.01" required
+                    placeholder="Enter new balance">
+                  <div class="tooltip">
+                    <i class="fas fa-question-circle"></i>
+                    <span class="tooltip-text">Enter the destination's updated balance after transaction</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="button-group">
+                <button type="submit" id="predictRandomForest" name="model" class="btn btn-primary">
+                  <i class="fas fa-tree"></i>
+                  Predict with Random Forest
+                </button>
+                <button type="button" id="predictNeuralNetwork" name="model" class="btn btn-secondary">
+                  <i class="fas fa-brain"></i>
+                  Predict with Neural Network
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Results Card (initially hidden) -->
+        <div class="card result-card legit" id="resultCard" style="display: none;">
+          <div class="card-header result-header">
+            <h2 class="result-title">Transaction Legitimate</h2>
+            <i class="fas fa-check-circle result-icon"></i>
+          </div>
+          <div class="card-content">
+            <p class="model-info">Analyzed with Random Forest Model</p>
+
+            <div class="confidence-section">
+              <div class="confidence-header">
+                <span>Confidence Score</span>
+                <span class="confidence-value">95.5%</span>
+              </div>
+              <div class="progress-container">
+                <div class="progress-bar" style="width: 95.5%;"></div>
               </div>
             </div>
-          </div>
 
-          <!-- Loading Spinner (initially hidden) -->
-          <div class="loading-spinner" id="loadingSpinner" style="display: none;">
-            <div class="spinner"></div>
-            <p>Analyzing transaction...</p>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-logo">
-            <div class="logo-icon">
-              <i class="fas fa-shield-alt"></i>
+            <div id="result-message">
+              This transaction appears legitimate based on our analysis. It aligns with normal transaction patterns.
             </div>
-            <span class="logo-text">FraudShield</span>
-          </div>
-          
-          <div class="footer-copyright">
-            © 2025 FraudShield. All rights reserved.
+            {% if prediction is not none %}
+              <div class="prediction-result">
+                <p><strong>Prediction:</strong> {{ prediction }}</p>
+              </div>
+            {% endif %}
+
+            {% if error %}
+              <div class="error-message">
+                <p style="color:red;"><strong>Error:</strong> {{ error }}</p>
+              </div>
+            {% endif %}
+
           </div>
         </div>
-      </div>
-    </footer>
 
-    <script src="/static/script.js"></script>
-  </body>
+        <!-- Loading Spinner (initially hidden) -->
+        <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+          <div class="spinner"></div>
+          <p>Analyzing transaction...</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <div class="logo-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <span class="logo-text">FraudShield</span>
+        </div>
+
+        <div class="footer-copyright">
+          © 2025 FraudShield. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/static/script.js"></script>
+</body>
+
 </html>
