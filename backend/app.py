@@ -7,7 +7,9 @@ app = Flask(__name__, static_folder='../static', template_folder='../frontend', 
 # Load the model
 import pickle
 with open('model_rfc.pkl', 'rb') as f:
-    model = pickle.load(f)
+    model1 = pickle.load(f)
+# with open('model_nn.pkl', 'rb') as f1:
+#     model2 = pickle.load(f1)
         
 @app.route('/')
 def home():
@@ -16,23 +18,33 @@ def home():
 @app.route('/predict', methods=['GET','POST'])
 def predict():
     if request.method == 'GET':
-        return render_template('predict.html')
+        return render_template('predict.html',result_card=False,prob = 0,prediction=0)
     else:
         try:
-            data = request.get_json()
+            data = request.form.to_dict()
+            print(data)
+            
             # Create a DataFrame with the same column names used during training
-            # print("HELLO")
-            print("DATA!!!!!",data)
-            feature_names = ['type', 'amount', 'oldbalanceOrg', 'newbalanceOrig', 'newbalanceDest', 'oldbalanceDest']
-            a = data['features']
-            # print(a)
-            features_df = pd.DataFrame([a], columns=feature_names)
-            # print("Hello")
-            # print(model)
-            print(features_df)
-            prediction = model.predict(features_df)
-            print(prediction)
-            return jsonify({'prediction': prediction})
+            features = ['amount', 'oldbalanceOrg', 'newbalanceOrig','newbalanceDest', 'oldbalanceDest', 'type_CASH_OUT', 'type_DEBIT', 'type_PAYMENT',
+       'type_TRANSFER']
+            d = [data['amount'],data['oldbalanceOrg'],data['newbalanceOrig'],data['newbalanceDest'],data['oldbalanceDest'],False,False,False,False]
+            df = pd.DataFrame([d], columns=features)
+            print(df)
+            a = 'type_' + data['type']
+            df.loc[df['amount'] == data['amount'], a ] = True
+            print(df)
+            # if data['model'] == 'RandomForest':
+            #     prediction = model1.predict(df)
+            # else:
+            #     prediction = model2.predict(df)
+            prediction = model1.predict(df)
+            proba = model1.predict_proba(df)
+            print(prediction,proba[0][prediction][0])
+            # return jsonify({'prediction': int(prediction[0])}) 
+            return render_template('predict.html', 
+                                     prediction=prediction,
+                                     result_card=True,
+                                     prob = proba[0][prediction][0])
         except Exception as e:
             return jsonify({'error': str(e)}), 400
         
