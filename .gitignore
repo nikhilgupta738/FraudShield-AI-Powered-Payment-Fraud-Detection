@@ -13,5 +13,4 @@ venv/
 *.whl
 
 # Ignore data or model files if not needed
-*.pkl
 *.csv
