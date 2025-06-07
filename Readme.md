@@ -60,7 +60,7 @@ The app will run on: http://127.0.0.1:5000
 ## 🖥️ Screenshots
 
 ### 🔹 Home Page  
-[![Home Page](static/images/homePage.png)](static/images/homePage.png)
+[![Home Page](frontend/static/images/homePage.png)](frontend/static/images/homePage.png)
 
 ### 🔹 Prediction Form  
 [![Prediction Form](static/images/predictForm.png)](static/images/predictForm.png)
