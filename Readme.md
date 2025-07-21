@@ -66,13 +66,13 @@ The app will run on: http://127.0.0.1:5000
 [![Prediction Form](static/images/predictForm.png)](frontend/static/images/predictForm.png)
 
 ### 🔹 Legitimate Transaction Result  
-[![Legitimate Transaction](frontend/static/images/legitTrans.png)](frontend/static/images/legitTrans.png)
+[![Legitimate Transaction](static/images/legitTrans.png)](frontend/static/images/legitTrans.png)
 
 ### 🔹 Fraudulent Transaction Result  
-[![Fraudulent Transaction](frontend/static/images/FraudTrans.png)](frontend/static/images/FraudTrans.png)
+[![Fraudulent Transaction](static/images/FraudTrans.png)](frontend/static/images/FraudTrans.png)
 
 ### 🔹 Feedback Page  
-[![Feedback Page](frontend/static/images/Feedback.png)](frontend/static/images/Feedback.png)
+[![Feedback Page](static/images/Feedback.png)](frontend/static/images/Feedback.png)
 
 
 ## 🧠 Models Used
