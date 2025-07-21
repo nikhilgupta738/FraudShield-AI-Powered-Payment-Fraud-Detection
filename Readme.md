@@ -60,10 +60,10 @@ The app will run on: http://127.0.0.1:5000
 ## 🖥️ Screenshots
 
 ### 🔹 Home Page  
-[![Home Page](frontend/static/images/homePage.png)](frontend/static/images/homePage.png)
+[![Home Page](static/images/homePage.png)](frontend/static/images/homePage.png)
 
 ### 🔹 Prediction Form  
-[![Prediction Form](frontend/static/images/predictForm.png)](frontend/static/images/predictForm.png)
+[![Prediction Form](static/images/predictForm.png)](frontend/static/images/predictForm.png)
 
 ### 🔹 Legitimate Transaction Result  
 [![Legitimate Transaction](frontend/static/images/legitTrans.png)](frontend/static/images/legitTrans.png)
